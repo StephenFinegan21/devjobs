@@ -7,13 +7,13 @@ import Container from './Components/Container';
 
 function App() {
 
-  const {render, filterValue, locationValue} = useFilter()
+  const {render, filterValue, locationValue, isChecked} = useFilter()
   return (
     <>
     <div className=" bg-gray-100 w-full h-full pb-5">
        <Nav />
         {render}
-          <Container {...{filterValue, locationValue}} />
+          <Container {...{filterValue, locationValue, isChecked}} />
       
     
     </div>
