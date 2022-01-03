@@ -4,6 +4,7 @@ import Nav from './Components/Nav';
 import useFilter from './Components/useFilter';
 import Container from './Components/Container';
 import JobPage from './Pages/JobPage';
+import Job from './Components/Job';
 
 import {
   BrowserRouter,
@@ -17,7 +18,7 @@ function App() {
   const {render, filterValue, locationValue, isChecked} = useFilter()
   return (
     <>
-    <div className=" bg-gray-100 w-full h-full pb-5 text-midnight">
+    <div className=" bg-lightGray w-full h-full pb-5 text-midnight">
      
       <BrowserRouter>
       <Routes>
@@ -26,8 +27,9 @@ function App() {
                       <Nav />
                       {render}
                       <Container {...{filterValue, locationValue, isChecked}}/>
-                    </>}/>
-            <Route path="jobPage/:id" element={<JobPage />} />
+                      
+</>}/>
+            <Route path=":id"  element={<JobPage />} />
           </Routes>
        
           

@@ -6,7 +6,6 @@ import { data } from 'autoprefixer'
 
 const Container = ( { filterValue, locationValue, isChecked }) => {
 
-
     
     let newArray = [];
 
@@ -29,7 +28,7 @@ const Container = ( { filterValue, locationValue, isChecked }) => {
         }
      
     
-    console.log(Data)
+    //console.log(Data)
     //console.log(filterValue)
     //console.log(locationValue)
     return (
@@ -44,6 +43,10 @@ const Container = ( { filterValue, locationValue, isChecked }) => {
             location = {job.location}
             position = {job.position}
             postedAt = {job.postedAt}
+            requirements = {job.requirements}
+            role = {job.role}
+            website ={job.website}
+
             /> )}
         </div>
     )

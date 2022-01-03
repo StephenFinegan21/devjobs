@@ -4,7 +4,11 @@ import JobPage from '../Pages/JobPage'
 import { Link } from 'react-router-dom'
 
 
+
+
 const Job = ({ id, company, location, postedAt, position , contract}) => {
+    
+
     
     return (
         <div className='w-full bg-white h-auto flex-col pt-8 pb-6'>
@@ -14,7 +18,9 @@ const Job = ({ id, company, location, postedAt, position , contract}) => {
                 <p>{contract}</p>
             </div>
             <h2 className='pl-6 pt-6 font-medium md:text-lg '> 
-                    <Link to={`jobpage/${id}`}>{position}</Link>
+                    <Link to={`${id}`}
+                
+                    >{position}</Link>
             </h2>
             <p className='pl-6 pt-6 text-gray-500'>{company}</p>
             <p className='pl-6 pt-12 bottom-0 text-purple '>{location}</p>

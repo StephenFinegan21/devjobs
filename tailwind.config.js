@@ -9,6 +9,9 @@ module.exports = {
         offWhite: '#F7F7F7',
         midnight: '#121721',
         veryDarkBlue: '#19202D',
+        gray: '#9DAEC2',
+        lightGray: '#F4F6F8',
+        darkGray: '#6E8098'
         
       },
     },
