@@ -21,10 +21,11 @@ function App() {
     <div className=" bg-lightGray w-full h-full pb-5 text-midnight">
      
       <BrowserRouter>
+      <Nav />
       <Routes>
             <Route path="/" 
             element={<>
-                      <Nav />
+                      
                       {render}
                       <Container {...{filterValue, locationValue, isChecked}}/>
                       

@@ -6,13 +6,16 @@ import { Link } from 'react-router-dom'
 
 
 
+
+
 const Job = ({ id, company, location, postedAt, position , contract}) => {
     
-
+//console.log(blogr)
     
     return (
         <div className='w-full bg-white h-auto flex-col pt-8 pb-6'>
-            <div className='w-60 grid grid-cols-3 text-sm text-gray-500  pl-6 pt-6'>
+            
+            <div className='w-4/5 grid grid-cols-3 text-sm text-gray-500  pl-6 pt-6'>
                 <p>{postedAt}</p>
                 <span className="h-1 w-1 bg-purple rounded-full  mx-auto mt-2 -translate-x-4"></span>
                 <p>{contract}</p>
