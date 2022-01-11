@@ -1,17 +1,8 @@
 import React from 'react'
-//import blogr from '../assets/logos/blogr.svg'
-import JobPage from '../Pages/JobPage'
 import { Link } from 'react-router-dom'
 
-
-
-
-
-
 const Job = ({ id, company, location, postedAt, position , contract}) => {
-    
-//console.log(blogr)
-    
+        
     return (
         <div className='w-full bg-white h-auto flex-col pt-8 pb-6'>
             
@@ -22,7 +13,6 @@ const Job = ({ id, company, location, postedAt, position , contract}) => {
             </div>
             <h2 className='pl-6 pt-6 font-medium md:text-lg '> 
                     <Link to={`${id}`}
-                
                     >{position}</Link>
             </h2>
             <p className='pl-6 pt-6 text-gray-500'>{company}</p>

@@ -46,7 +46,7 @@ const Container = ( { filterValue, locationValue, isChecked }) => {
             postedAt = {job.postedAt}
             requirements = {job.requirements}
             role = {job.role}
-            website ={job.website}
+            
 
             /> )}
         </div>
