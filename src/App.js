@@ -1,7 +1,7 @@
-import logo from './logo.svg';
+import {React, useState} from 'react'
 import './App.css';
 import Nav from './Components/Nav';
-import useFilter from './Components/useFilter';
+import Filter from './Components/Filter';
 import Container from './Components/Container';
 import JobPage from './Pages/JobPage';
 import Job from './Components/Job';
@@ -15,7 +15,20 @@ import {
 
 function App() {
 
-  const {render, filterValue, locationValue, isChecked} = useFilter()
+  const  [filterValue, setFilterValue] = useState(localStorage.getItem('filterValue' || ''))
+  const  [locationValue, setLocationValue] = useState()
+  const [isChecked, setIsChecked] = useState(false)
+
+  const handleFilterValue = (event) =>{
+    setFilterValue(event.target.value)
+  }
+  const handleLocationValue = (event) =>{
+    setLocationValue(event.target.value)
+  }
+const handleCheck = () =>{
+    setIsChecked(!isChecked)
+  }
+
   return (
     <>
     <div className=" bg-lightGray w-full h-full pb-5 text-midnight">
@@ -26,7 +39,11 @@ function App() {
             <Route path="/" 
             element={<>
                       
-                      {render}
+                      <Filter 
+                      onFilterUpdate = {handleFilterValue}
+                      onLocationUpdate = {handleLocationValue}
+                      onCheckUpdate = {handleCheck}
+                      />
                       <Container {...{filterValue, locationValue, isChecked}}/>
                       
 </>}/>

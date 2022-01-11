@@ -1,4 +1,4 @@
-import {React} from 'react'
+import {React, useEffect} from 'react'
 import Job from './Job'
 import Data from '../data/data.json'
 
@@ -7,8 +7,9 @@ import Data from '../data/data.json'
 
 const Container = ( { filterValue, locationValue, isChecked }) => {
 
-    
     let newArray = [];
+    
+        
 
         if(locationValue && filterValue){
              newArray =  Data.filter(m => m.location.toLowerCase().includes(locationValue.toLowerCase()) && (m.company.toLowerCase().includes(filterValue.toLowerCase()) || m.position.toLowerCase().includes(filterValue.toLowerCase())))
@@ -27,11 +28,9 @@ const Container = ( { filterValue, locationValue, isChecked }) => {
              newArray = Data
              newArray = isChecked ? newArray.filter(job => job.contract === 'Full Time') : newArray
         }
+        
      
 
-    //console.log(Data)
-    //console.log(filterValue)
-    //console.log(locationValue)
     return (
         
         <div className=" w-4/5 mx-auto h-full grid grid-cols-1  gap-x-8 gap-y-12  md:grid-cols-2 lg:grid-cols-3 ">
@@ -50,8 +49,6 @@ const Container = ( { filterValue, locationValue, isChecked }) => {
             website ={job.website}
 
             /> )}
-          
-            
         </div>
     )
 }
