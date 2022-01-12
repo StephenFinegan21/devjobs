@@ -15,6 +15,8 @@ import {
 
 function App() {
 
+  const [isSubmitted, setIsSubmitted] = useState(false) //Filters by if Full time only box is ticked
+
   //Values that hold user filter requests - Are passed down to container component - tells container  what jobs to show
   const  [filterValue, setFilterValue] = useState(localStorage.getItem('filterValue' || '')) // Filters by Job Title / Company, 
   const  [locationValue, setLocationValue] = useState() //Filters by Location
@@ -36,6 +38,12 @@ const handleCheck = () =>{
   //If False (unticked box) change to true and vice versa
     setIsChecked(!isChecked)
   }
+  
+ 
+
+const onConfirmSearch = () => {
+   setIsSubmitted(!isSubmitted)
+}
 
   return (
     <>
@@ -49,8 +57,10 @@ const handleCheck = () =>{
                       onFilterUpdate = {handleFilterValue}
                       onLocationUpdate = {handleLocationValue}
                       onCheckUpdate = {handleCheck}
+                      search = {onConfirmSearch}
+                     
                       />
-                      <Container {...{filterValue, locationValue, isChecked}}/>
+                      <Container {...{filterValue, locationValue, isChecked, isSubmitted}}/>
                     </>}/>
             {/* Uses the relevant Job id to load up that Jobs information in Jobpage commponent */}
             <Route path=":id"  element={<JobPage />} />

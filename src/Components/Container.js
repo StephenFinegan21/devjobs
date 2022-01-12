@@ -5,11 +5,13 @@ import Data from '../data/data.json'
 
 
 
-const Container = ( { filterValue, locationValue, isChecked }) => {
+const Container = ( { filterValue, locationValue, isChecked, isSubmitted }) => {
 
     const [jobsArray , setJobsArray] = useState()  //List that will hold Jobs
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false); //Any error values held here
+
+    
 
     const getAsyncJobs = () =>
     new Promise((resolve) =>
@@ -54,7 +56,7 @@ const Container = ( { filterValue, locationValue, isChecked }) => {
             .catch(() => setIsError(true));
 
             //Use effect will run whenever one of the dependcies below changes (ie when user interacts with a filter)
-          }, [filterValue, locationValue, isChecked]);        
+          }, [isSubmitted]);        
 
     
         
