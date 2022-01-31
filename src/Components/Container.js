@@ -1,4 +1,4 @@
-import {React, useEffect, useState, useReducer} from 'react'
+import {React, useEffect, useReducer, useCallback} from 'react'
 import Job from './Job'
 import Data from '../data/data.json'
 
@@ -52,8 +52,7 @@ const Container = ( { filterValue, locationValue, isChecked, isSubmitted }) => {
      )
   );
 
-        
-        useEffect(() => {
+        const handleGetJobs = useCallback(() => {
             dispatchJobs({ type: 'JOBS_FETCH_INIT' });
             getAsyncJobs().then(result => {
                 
@@ -97,10 +96,12 @@ const Container = ( { filterValue, locationValue, isChecked, isSubmitted }) => {
             }).catch(() =>
             dispatchJobs({ type: 'JOBS_FETCH_FAILURE' }));
     
+        },[isSubmitted]);
+        useEffect(() => {
             
+            handleGetJobs()
 
-            //Use effect will run whenever one of the dependcies below changes (ie when user interacts with a filter)
-          }, [isSubmitted]);        
+          }, [handleGetJobs]);        
 
     //console.log(jobsArray)
         
