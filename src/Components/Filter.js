@@ -18,7 +18,7 @@ const Filter = ( {onFilterUpdate, onLocationUpdate, onCheckUpdate, search} ) => 
             <div className=" border border-lightGray   col-span-1 grid grid-cols-2">
                 <div className='col-span-1 m-auto  '>
                     <label htmlFor="full-time-only" className="text-gray-400 text-xs md:p-6 "> Full Time</label>
-                    <input class=" h-4 w-4 rounded " type="checkbox"  name="full-time"  onChange={onCheckUpdate} />
+                    <input className=" h-4 w-4 rounded " type="checkbox"  name="full-time"  onChange={onCheckUpdate} />
                 </div>
                 <div className='col-span-1 pt-6 md:plr-6 '>
                 <button className="w-full h-10  text-white text-xs rounded-sm bg-purple lg:w-1/2" type="button" onClick={search} >Submit</button>
