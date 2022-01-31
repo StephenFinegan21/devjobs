@@ -1,4 +1,4 @@
-import {React, useEffect, useReducer, useCallback} from 'react'
+import {React, useEffect, useReducer, useCallback, useRef} from 'react'
 import Job from './Job'
 import Data from '../data/data.json'
 
@@ -42,7 +42,7 @@ const Container = ( { filterValue, locationValue, isChecked, isSubmitted }) => {
         { data: [], isLoading: false, isError: false }
       );
 
-    
+      const prevParams = useRef(isSubmitted);
 
     const getAsyncJobs = () =>
     new Promise((resolve) =>
@@ -53,6 +53,7 @@ const Container = ( { filterValue, locationValue, isChecked, isSubmitted }) => {
   );
 
         const handleGetJobs = useCallback(() => {
+            if (prevParams.current !== isSubmitted) {
             dispatchJobs({ type: 'JOBS_FETCH_INIT' });
             getAsyncJobs().then(result => {
                 
@@ -94,9 +95,10 @@ const Container = ( { filterValue, locationValue, isChecked, isSubmitted }) => {
 
               
             }).catch(() =>
-            dispatchJobs({ type: 'JOBS_FETCH_FAILURE' }));
-    
-        },[isSubmitted]);
+            dispatchJobs({ type: 'JOBS_FETCH_FAILURE' }));}
+            prevParams.current = isSubmitted;
+
+        },[isSubmitted,locationValue, filterValue]);
         useEffect(() => {
             
             handleGetJobs()
