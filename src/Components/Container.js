@@ -42,7 +42,7 @@ const Container = ( { filterValue, locationValue, isChecked, isSubmitted }) => {
         { data: [], isLoading: false, isError: false }
       );
 
-      const prevParams = useRef(isSubmitted);
+    const sumbittedRef = useRef(isSubmitted); //for keeping a reference of whether form has been submitted
 
     const getAsyncJobs = () =>
     new Promise((resolve) =>
@@ -52,9 +52,21 @@ const Container = ( { filterValue, locationValue, isChecked, isSubmitted }) => {
      )
   );
 
+
+  useEffect(() => {
+    getAsyncJobs().then(result => {
+    dispatchJobs({ type: 'JOBS_FETCH_INIT' });
+    dispatchJobs({
+      type: 'JOBS_FETCH_SUCCESS',
+      payload:  result.data.jobs
+  })
+})
+  }, []);   
+
         const handleGetJobs = useCallback(() => {
-            if (prevParams.current !== isSubmitted) {
+            
             dispatchJobs({ type: 'JOBS_FETCH_INIT' });
+            if (sumbittedRef.current !== isSubmitted) {
             getAsyncJobs().then(result => {
                 
                 //Filtering by Job and Location
@@ -96,11 +108,13 @@ const Container = ( { filterValue, locationValue, isChecked, isSubmitted }) => {
               
             }).catch(() =>
             dispatchJobs({ type: 'JOBS_FETCH_FAILURE' }));}
-            prevParams.current = isSubmitted;
+            sumbittedRef.current = isSubmitted;
 
-        },[isSubmitted,locationValue, filterValue]);
+        },[isSubmitted]);
+
+
+
         useEffect(() => {
-            
             handleGetJobs()
 
           }, [handleGetJobs]);        
