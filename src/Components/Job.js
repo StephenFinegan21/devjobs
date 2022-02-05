@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Job = ({ id, company, location, postedAt, position , contract}) => {
-        
+const Job = ({ id, company, location, postedAt, position , contract, img}) => {
+   
+  console.log(img)
     return (
         <div className='w-full bg-white h-auto flex-col pt-8 pb-6'>
             
@@ -17,6 +18,8 @@ const Job = ({ id, company, location, postedAt, position , contract}) => {
             </h2>
             <p className='pl-6 pt-6 text-gray-500'>{company}</p>
             <p className='pl-6 pt-12 bottom-0 text-purple '>{location}</p>
+            
+            
             
         </div>
     )

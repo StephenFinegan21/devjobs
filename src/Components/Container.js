@@ -33,41 +33,42 @@ const jobsReducer = (state, action) => {
 const Container = ( { filterValue, locationValue, isChecked, isSubmitted }) => {
 
         /*  Was initially using useState, switched to useReducer to ensure more consistent data
-    const [jobsArray , setJobsArray] = useState()  //List that will hold Jobs
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false); //Any error values held here
-    */
+        const [jobsArray , setJobsArray] = useState()  //List that will hold Jobs
+        const [isLoading, setIsLoading] = useState(false);
+        const [isError, setIsError] = useState(false); //Any error values held here
+        */
     const [jobsArray, dispatchJobs] = useReducer(
         jobsReducer,
         { data: [], isLoading: false, isError: false }
       );
 
-    const sumbittedRef = useRef(isSubmitted); //for keeping a reference of whether form has been submitted
+    //for keeping a reference of whether form has been submitted
+    const sumbittedRef = useRef(isSubmitted); 
 
     const getAsyncJobs = () =>
     new Promise((resolve) =>
     setTimeout(
       () => resolve({ data: { jobs: Data } }),
-      500 //Just for testing the isLoading variable and displaying loading message
+      200 
      )
   );
 
+  //Initial page load - load all jobs
+    useEffect(() => {
+      getAsyncJobs().then(result => {
+      dispatchJobs({ type: 'JOBS_FETCH_INIT' });
+      dispatchJobs({
+        type: 'JOBS_FETCH_SUCCESS',
+        payload:  result.data.jobs
+      })
+    })
+    }, []);   
 
-  useEffect(() => {
-    getAsyncJobs().then(result => {
-    dispatchJobs({ type: 'JOBS_FETCH_INIT' });
-    dispatchJobs({
-      type: 'JOBS_FETCH_SUCCESS',
-      payload:  result.data.jobs
-  })
-})
-  }, []);   
-
-        const handleGetJobs = useCallback(() => {
-            
+    
+    const handleGetJobs = useCallback(() => {
+        if (sumbittedRef.current !== isSubmitted) { //Stops data from loading unless isSumbitted has changed (sumbit btn clicked)
             dispatchJobs({ type: 'JOBS_FETCH_INIT' });
-            if (sumbittedRef.current !== isSubmitted) {
-            getAsyncJobs().then(result => {
+              getAsyncJobs().then(result => {
                 
                 //Filtering by Job and Location
                 if(locationValue && filterValue){ 
@@ -100,28 +101,20 @@ const Container = ( { filterValue, locationValue, isChecked, isSubmitted }) => {
                         type: 'JOBS_FETCH_SUCCESS',
                         payload:  result.data.jobs
                     });
-                }
-                
-                //setNewArray (isChecked ? newArray.filter(job => job.contract === 'Full Time') : newArray  )
-                // Filtering by Contract (Full time vs Part time is now done in JSX below with conditional rendering)
-
-              
+                }  
             }).catch(() =>
             dispatchJobs({ type: 'JOBS_FETCH_FAILURE' }));}
-            sumbittedRef.current = isSubmitted;
+            sumbittedRef.current = isSubmitted;  //Reset the reference - ensures data is not loaded again until submit is clicked
 
-        },[isSubmitted]);
-
+        },[isSubmitted, filterValue, locationValue]);
 
 
         useEffect(() => {
             handleGetJobs()
 
-          }, [handleGetJobs]);        
-
-    //console.log(jobsArray)
+          }, [handleGetJobs]);
         
-        
+       // console.log(jobsArray.data[0].logo)
 
     return (
         
@@ -145,6 +138,8 @@ const Container = ( { filterValue, locationValue, isChecked, isSubmitted }) => {
                     postedAt = {job.postedAt}
                     requirements = {job.requirements}
                     role = {job.role}
+                   
+                    
             /> )} 
         </div>
     )
